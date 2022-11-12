@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title> Login page</title>
+</head>
+<body>
+    <form>
+   
+  <input id="email" type="email" placeholder="Enter Email">
+  <input id="password" type="password" placeholder="Enter password">
+  <input type="submit" value="Login">
+
+    </form>
+</body>
+</html>
+<script>
+
+    let form=document.querySelector("form");
+
+
+    let logindata=JSON.parse(localStorage.getItem("signupdata")) || []
+
+    form.addEventListener("submit",function(event){
+    event.preventDefault();
+        if(logindata.length===0){
+            alert("Do signup first")
+            return
+        }else{
+          let obj={
+        email:form.email.value,
+        password:form.password.value
+          }
+
+          let flag=false;
+
+          logindata.forEach(function(elem){
+
+           if(elem.email==obj.email && elem.password==obj.password){
+            flag=true;
+        localStorage.setItem("logindetail",JSON.stringify(elem))
+        alert("login successfully")
+        window.location.href="index.html"
+           }
+          }) 
+          if(flag===false){
+        alert("Password Incorrect")
+        }
+        }
+       
+
+
+    })
+
+     
+</script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Page</title>
+    <style>
+        form{
+            width:50%;
+            /* border: 1px solid red; */
+            margin: auto;
+             
+             
+        }
+    </style>
+</head>
+<body>
+    <form>
+  <input id="name" type="text" placeholder="Enter Name">
+  <input id="email" type="email" placeholder="Enter Email">
+  <input id="password" type="password" placeholder="Enter password">
+  <input type="submit" value="Signup">
+   
+
+
+    </form>
+</body>
+</html>
+<script>
+    let form=document.querySelector("form");
+
+    let signupls=JSON.parse(localStorage.getItem("signupdata")) || []
+
+
+    form.addEventListener("submit",function(event){
+      event.preventDefault();
+
+      let obj={
+        name:form.name.value,
+        email:form.email.value,
+        password:form.password.value
+
+      }
+      if(obj.name=="" || obj.email=="" || obj.password==""){
+        alert("Fill all the details")
+      }else{
+
+      
+      signupls.push(obj)
+      localStorage.setItem("signupdata",JSON.stringify(signupls))
+       
+      }
+    })
+
+</script>

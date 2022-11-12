@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart page</title>
+    <style>
+
+#container{
+            /* border: 1px solid red; */
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+            margin-top:20px;
+
+        }
+        #container>div>img{
+            
+            width: 100%;
+        }
+        #container>div{
+            /* border: 1px solid red; */
+            text-align: center;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <h3 >Total Price is:- <span id="total-price">0</span></h3>
+    
+</body>
+</html>
+<script>
+
+ let container=document.getElementById("container");
+let cartLs=JSON.parse(localStorage.getItem("cart-page")) || []
+
+let totalprice=document.getElementById("total-price");
+   
+function display(data){
+      container.innerHTML=null
+
+      let total=0;
+       
+
+      data.forEach(function(elem,index){
+
+        total=total+Number(elem.price)
+
+         
+
+        let product=document.createElement("div")
+
+        let img=document.createElement("img")
+         img.src=elem.img
+
+         let name=document.createElement("p")
+         name.innerText=elem.brand
+
+         let price=document.createElement("p")
+         price.innerText=elem.price
+
+         let category=document.createElement("p")
+         category.innerText=elem.catagory
+
+         let deletebtn=document.createElement("button");
+         deletebtn.innerText="Delete"
+         
+         deletebtn.addEventListener("click",function(){
+           deletecart(index)
+
+         })
+        product.append(img,name,price,category,deletebtn)
+        container.append(product)
+         
+      })
+      totalprice.innerText=total
+       
+     }
+      
+     display(cartLs);
+
+    function deletecart(index){
+   let deletedcart=cartLs.filter(function(el,i){
+    return i!= index;
+     })
+     display(deletedcart);
+     localStorage.setItem("cart-page",JSON.stringify(deletedcart))
+    }
+</script>
